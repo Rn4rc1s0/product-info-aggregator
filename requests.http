@@ -1,0 +1,196 @@
+### Product Information Aggregator - HTTP Test Requests
+
+### ========================================
+### Basic Requests (Without Customer ID)
+### ========================================
+
+### Get product ABC123 in German market (no customer context)
+GET http://localhost:8080/product-info?productId=ABC123&market=de-DE
+Accept: application/json
+
+###
+
+### Get product XYZ999 in Dutch market
+GET http://localhost:8080/product-info?productId=XYZ999&market=nl-NL
+Accept: application/json
+
+###
+
+### Get product ABC123 in Polish market
+GET http://localhost:8080/product-info?productId=ABC123&market=pl-PL
+Accept: application/json
+
+###
+
+### ========================================
+### Requests With Customer ID (Personalized)
+### ========================================
+
+### German market with STANDARD customer (5% discount)
+GET http://localhost:8080/product-info?productId=ABC123&market=de-DE&customerId=789
+Accept: application/json
+
+###
+
+### German market with BASIC customer (no discount)
+GET http://localhost:8080/product-info?productId=ABC123&market=de-DE&customerId=111
+Accept: application/json
+
+###
+
+### Polish market with PREMIUM customer (12.5% discount)
+GET http://localhost:8080/product-info?productId=ABC123&market=pl-PL&customerId=456
+Accept: application/json
+
+###
+
+### Dutch market with existing customer
+GET http://localhost:8080/product-info?productId=XYZ999&market=nl-NL&customerId=101
+Accept: application/json
+
+###
+
+### ========================================
+### Edge Cases & Error Scenarios
+### ========================================
+
+### Product not found (should return 404)
+GET http://localhost:8080/product-info?productId=XPT456&market=de-DE
+Accept: application/json
+
+###
+
+### Invalid market (should return 400 with MARKET_NOT_FOUND)
+### Expected: {"code": "MARKET_NOT_FOUND", "message": "Market 'fr-FR' is not supported. Supported markets: de-DE, nl-NL, pl-PL"}
+GET http://localhost:8080/product-info?productId=ABC123&market=fr-FR
+Accept: application/json
+
+###
+
+### Missing required parameter productId (should return 400)
+GET http://localhost:8080/product-info?market=de-DE
+Accept: application/json
+
+###
+
+### Missing required parameter market (should return 400)
+GET http://localhost:8080/product-info?productId=ABC123
+Accept: application/json
+
+###
+
+### Customer not found (should return standard context, not fail)
+GET http://localhost:8080/product-info?productId=ABC123&market=de-DE&customerId=UNKNOWN
+Accept: application/json
+
+###
+
+### ========================================
+### GRACEFUL DEGRADATION DEMOS (for interview)
+### These demonstrate partial failure handling
+### ========================================
+
+### DEMO 1: Pricing Unavailable (nl-NL + XYZ999)
+### XYZ999 has forceUnavailable=true with reason "PRICING_ENGINE_MAINTENANCE"
+### Expected: Product returned with pricing.available=false, pricing.reason="PRICING_ENGINE_MAINTENANCE"
+GET http://localhost:8080/product-info?productId=XYZ999&market=nl-NL
+Accept: application/json
+
+###
+
+### DEMO 2: Pricing Unavailable (pl-PL + ABC123)
+### ABC123 has forceUnavailable=true with reason "NO_PRICE_FOR_MARKET"
+### Expected: Product returned with pricing.available=false, pricing.reason="NO_PRICE_FOR_MARKET"
+GET http://localhost:8080/product-info?productId=ABC123&market=pl-PL
+Accept: application/json
+
+###
+
+### DEMO 3: Stock Unknown (pl-PL + ABC123)
+### ABC123 does not exist in pl-PL availability data
+### Expected: Product returned with availability.stockKnown=false
+GET http://localhost:8080/product-info?productId=ABC123&market=pl-PL
+Accept: application/json
+
+###
+
+### DEMO 4: Both Pricing AND Stock failures (pl-PL + ABC123)
+### Same as above - shows multiple partial failures handled together
+### Expected: pricing.available=false AND availability.stockKnown=false
+GET http://localhost:8080/product-info?productId=ABC123&market=pl-PL&customerId=456
+Accept: application/json
+
+###
+
+### DEMO 5: Customer not found falls back to STANDARD segment
+### Customer "UNKNOWN" doesn't exist - should gracefully degrade
+### Expected: customer.segment="STANDARD", customer.customerId=null
+GET http://localhost:8080/product-info?productId=ABC123&market=de-DE&customerId=UNKNOWN
+Accept: application/json
+
+###
+
+### DEMO 6: Everything works perfectly (de-DE + ABC123)
+### All services return valid data
+### Expected: All fields populated, pricing.available=true, availability.stockKnown=true
+GET http://localhost:8080/product-info?productId=ABC123&market=de-DE&customerId=789
+Accept: application/json
+
+###
+
+### ========================================
+### Actuator Endpoints (Health & Metrics)
+### ========================================
+
+### Health check
+GET http://localhost:8080/actuator/health
+Accept: application/json
+
+###
+
+### Detailed health with liveness/readiness probes
+GET http://localhost:8080/actuator/health/liveness
+Accept: application/json
+
+###
+
+GET http://localhost:8080/actuator/health/readiness
+Accept: application/json
+
+###
+
+### Available metrics
+GET http://localhost:8080/actuator/metrics
+Accept: application/json
+
+###
+
+### JVM memory metrics
+GET http://localhost:8080/actuator/metrics/jvm.memory.used
+Accept: application/json
+
+###
+
+### HTTP server request metrics
+GET http://localhost:8080/actuator/metrics/http.server.requests
+Accept: application/json
+
+###
+
+### Application info
+GET http://localhost:8080/actuator/info
+Accept: application/json
+
+###
+
+### ========================================
+### API Documentation
+### ========================================
+
+### OpenAPI specification (JSON)
+GET http://localhost:8080/v3/api-docs
+Accept: application/json
+
+###
+
+### Note: Access Swagger UI at http://localhost:8080/swagger-ui

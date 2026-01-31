@@ -1,0 +1,775 @@
+{
+  "info": {
+    "_postman_id": "product-info-aggregator-collection",
+    "name": "Product Information Aggregator",
+    "description": "Backend service that aggregates product information from multiple internal services (Catalog, Pricing, Availability, Customer) into a single, market-aware response.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Basic Requests (Without Customer ID)",
+      "item": [
+        {
+          "name": "Get product ABC123 in German market",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=de-DE",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                }
+              ]
+            },
+            "description": "Get product ABC123 in German market (no customer context)"
+          }
+        },
+        {
+          "name": "Get product XYZ999 in Dutch market",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=XYZ999&market=nl-NL",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "XYZ999"
+                },
+                {
+                  "key": "market",
+                  "value": "nl-NL"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get product ABC123 in Polish market",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=pl-PL",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "pl-PL"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Requests With Customer ID (Personalized)",
+      "item": [
+        {
+          "name": "German market with STANDARD customer (5% discount)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=de-DE&customerId=789",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                },
+                {
+                  "key": "customerId",
+                  "value": "789"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "German market with BASIC customer (no discount)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=de-DE&customerId=111",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                },
+                {
+                  "key": "customerId",
+                  "value": "111"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Polish market with PREMIUM customer (12.5% discount)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=pl-PL&customerId=456",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "pl-PL"
+                },
+                {
+                  "key": "customerId",
+                  "value": "456"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dutch market with existing customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=XYZ999&market=nl-NL&customerId=101",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "XYZ999"
+                },
+                {
+                  "key": "market",
+                  "value": "nl-NL"
+                },
+                {
+                  "key": "customerId",
+                  "value": "101"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases & Error Scenarios",
+      "item": [
+        {
+          "name": "Product not found (should return 404)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=XPT456&market=de-DE",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "XPT456"
+                },
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                }
+              ]
+            },
+            "description": "Expected: 404 Not Found with PRODUCT_NOT_FOUND error code"
+          }
+        },
+        {
+          "name": "Invalid market (should return 400 MARKET_NOT_FOUND)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=fr-FR",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "fr-FR"
+                }
+              ]
+            },
+            "description": "Expected: 400 Bad Request with MARKET_NOT_FOUND error code.\n\nResponse: {\"code\": \"MARKET_NOT_FOUND\", \"message\": \"Market 'fr-FR' is not supported. Supported markets: de-DE, nl-NL, pl-PL\"}"
+          }
+        },
+        {
+          "name": "Missing required parameter productId (should return 400)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?market=de-DE",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                }
+              ]
+            },
+            "description": "Expected: 400 Bad Request"
+          }
+        },
+        {
+          "name": "Missing required parameter market (should return 400)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                }
+              ]
+            },
+            "description": "Expected: 400 Bad Request"
+          }
+        },
+        {
+          "name": "Customer not found (should return standard context)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=de-DE&customerId=234",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                },
+                {
+                  "key": "customerId",
+                  "value": "234"
+                }
+              ]
+            },
+            "description": "Expected: 200 OK with customer.segment=STANDARD (graceful degradation)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Graceful Degradation Demos (for interview)",
+      "description": "These requests demonstrate partial failure handling - key scenarios to show during the interview",
+      "item": [
+        {
+          "name": "DEMO 1: Pricing Unavailable (nl-NL + XYZ999)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=XYZ999&market=nl-NL",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "XYZ999"
+                },
+                {
+                  "key": "market",
+                  "value": "nl-NL"
+                }
+              ]
+            },
+            "description": "XYZ999 has forceUnavailable=true with reason 'PRICING_ENGINE_MAINTENANCE'\n\nExpected: Product returned with pricing.available=false, pricing.reason='PRICING_ENGINE_MAINTENANCE'"
+          }
+        },
+        {
+          "name": "DEMO 2: Pricing Unavailable (pl-PL + ABC123)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=pl-PL",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "pl-PL"
+                }
+              ]
+            },
+            "description": "ABC123 has forceUnavailable=true with reason 'NO_PRICE_FOR_MARKET'\n\nExpected: Product returned with pricing.available=false, pricing.reason='NO_PRICE_FOR_MARKET'"
+          }
+        },
+        {
+          "name": "DEMO 3: Stock Unknown (pl-PL + ABC123)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=pl-PL",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "pl-PL"
+                }
+              ]
+            },
+            "description": "ABC123 does not exist in pl-PL availability data\n\nExpected: Product returned with availability.stockKnown=false"
+          }
+        },
+        {
+          "name": "DEMO 4: Both Pricing AND Stock failures",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=pl-PL&customerId=456",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "pl-PL"
+                },
+                {
+                  "key": "customerId",
+                  "value": "456"
+                }
+              ]
+            },
+            "description": "Shows multiple partial failures handled together\n\nExpected: pricing.available=false AND availability.stockKnown=false"
+          }
+        },
+        {
+          "name": "DEMO 5: Customer not found falls back to STANDARD",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=de-DE&customerId=234",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                },
+                {
+                  "key": "customerId",
+                  "value": "234"
+                }
+              ]
+            },
+            "description": "Customer 'UNKNOWN' doesn't exist - should gracefully degrade\n\nExpected: customer.segment='STANDARD', customer.customerId=null"
+          }
+        },
+        {
+          "name": "DEMO 6: Everything works perfectly",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product-info?productId=ABC123&market=de-DE&customerId=789",
+              "host": ["{{baseUrl}}"],
+              "path": ["product-info"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "ABC123"
+                },
+                {
+                  "key": "market",
+                  "value": "de-DE"
+                },
+                {
+                  "key": "customerId",
+                  "value": "789"
+                }
+              ]
+            },
+            "description": "All services return valid data\n\nExpected: All fields populated, pricing.available=true, availability.stockKnown=true"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Actuator Endpoints (Health & Metrics)",
+      "item": [
+        {
+          "name": "Health check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health"]
+            }
+          }
+        },
+        {
+          "name": "Liveness probe",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health/liveness",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health", "liveness"]
+            }
+          }
+        },
+        {
+          "name": "Readiness probe",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health/readiness",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health", "readiness"]
+            }
+          }
+        },
+        {
+          "name": "Available metrics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/metrics",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "metrics"]
+            }
+          }
+        },
+        {
+          "name": "JVM memory metrics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/metrics/jvm.memory.used",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "metrics", "jvm.memory.used"]
+            }
+          }
+        },
+        {
+          "name": "HTTP server request metrics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/metrics/http.server.requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "metrics", "http.server.requests"]
+            }
+          }
+        },
+        {
+          "name": "Application info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/info",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "info"]
+            }
+          }
+        },
+        {
+          "name": "Circuit Breakers status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/circuitbreakers",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "circuitbreakers"]
+            }
+          }
+        },
+        {
+          "name": "Circuit Breaker events",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/circuitbreakerevents",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "circuitbreakerevents"]
+            }
+          }
+        },
+        {
+          "name": "Retries status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/retries",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "retries"]
+            }
+          }
+        },
+        {
+          "name": "Retry events",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/retryevents",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "retryevents"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API Documentation",
+      "item": [
+        {
+          "name": "OpenAPI specification (JSON)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v3/api-docs",
+              "host": ["{{baseUrl}}"],
+              "path": ["v3", "api-docs"]
+            },
+            "description": "OpenAPI 3.0 specification in JSON format.\n\nNote: Access Swagger UI at http://localhost:8080/swagger-ui"
+          }
+        }
+      ]
+    }
+  ]
+}

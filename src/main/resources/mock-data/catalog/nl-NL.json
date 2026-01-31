@@ -1,0 +1,45 @@
+{
+  "products": {
+    "ABC123": {
+      "name": "Hydraulische Slang Premium",
+      "description": "Hogedrukslang voor landbouwmachines, geschikt voor olie en water. Duurzaam en bestand tegen extreme temperaturen.",
+      "specs": {
+        "length": "2m",
+        "diameter": "25mm",
+        "maxPressure": "420 bar",
+        "temperature": "-40°C to +100°C",
+        "material": "Synthetisch rubber met stalen versterking"
+      },
+      "images": [
+        "https://cdn.example.com/images/nl/ABC123-1.jpg",
+        "https://cdn.example.com/images/nl/ABC123-2.jpg"
+      ]
+    },
+    "XYZ999": {
+      "name": "Oliefilter Universeel",
+      "description": "Universeel oliefilter voor tractoren en oogstmachines. Hoge filterefficiëntie en eenvoudige vervanging.",
+      "specs": {
+        "height": "120mm",
+        "outerDiameter": "93mm",
+        "threadSize": "3/4-16 UNF",
+        "filterType": "Spin-on",
+        "compatibility": "Meerdere tractormerken"
+      },
+      "images": [
+        "https://cdn.example.com/images/nl/XYZ999-1.jpg"
+      ]
+    },
+    "PUMP456": {
+      "name": "Waterpomp Versterkt",
+      "description": "Hoogwaardige waterpomp voor koelsystemen. Geschikt voor zware omstandigheden.",
+      "specs": {
+        "flowRate": "150 L/min",
+        "voltage": "12V",
+        "power": "85W"
+      },
+      "images": [
+        "https://cdn.example.com/images/nl/PUMP456-1.jpg"
+      ]
+    }
+  }
+}
