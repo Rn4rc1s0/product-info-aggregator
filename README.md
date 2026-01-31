@@ -22,7 +22,7 @@ A backend service that aggregates product information from multiple internal ser
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/Rn4rc1s0/product-info-aggregator
 cd product-info-aggregator
 
 # Build and run
