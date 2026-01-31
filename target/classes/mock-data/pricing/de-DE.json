@@ -1,8 +1,0 @@
-{
-  "currency": "EUR",
-  "items": {
-    "ABC123": { "basePrice": 24.90 },
-    "XYZ999": { "basePrice": 12.40 }
-  },
-  "overrides": { }
-}

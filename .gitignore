@@ -1,5 +1,9 @@
 re # Build output
 /target/
+*.class
+*.jar
+*.war
+*.ear
 
 # Maven wrapper jar (optional to ignore if you prefer to keep it)
 # /.mvn/wrapper/maven-wrapper.jar

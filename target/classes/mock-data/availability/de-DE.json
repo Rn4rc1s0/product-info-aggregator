@@ -1,7 +1,0 @@
-{
-  "warehouse": "DE-02",
-  "items": {
-    "ABC123": { "stock": 8, "delivery": "1-2 days" },
-    "XYZ999": { "stock": 0, "delivery": "5-7 days" }
-  }
-}
