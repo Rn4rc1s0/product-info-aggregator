@@ -1,0 +1,33 @@
+{
+  "products": {
+    "ABC123": {
+      "name": "Wąż Hydrauliczny Premium",
+      "description": "Wąż wysokociśnieniowy do maszyn rolniczych, odpowiedni do oleju i wody. Trwały i odporny na ekstremalne temperatury.",
+      "specs": {
+        "length": "2m",
+        "diameter": "25mm",
+        "maxPressure": "420 bar",
+        "temperature": "-40°C to +100°C",
+        "material": "Guma syntetyczna ze wzmocnieniem stalowym"
+      },
+      "images": [
+        "https://cdn.example.com/images/pl/ABC123-1.jpg",
+        "https://cdn.example.com/images/pl/ABC123-2.jpg"
+      ]
+    },
+    "XYZ999": {
+      "name": "Filtr Oleju Uniwersalny",
+      "description": "Uniwersalny filtr oleju do ciągników i kombajnów. Wysoka skuteczność filtracji i łatwa wymiana.",
+      "specs": {
+        "height": "120mm",
+        "outerDiameter": "93mm",
+        "threadSize": "3/4-16 UNF",
+        "filterType": "Spin-on",
+        "compatibility": "Wiele marek ciągników"
+      },
+      "images": [
+        "https://cdn.example.com/images/pl/XYZ999-1.jpg"
+      ]
+    }
+  }
+}

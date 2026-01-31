@@ -1,0 +1,11 @@
+{
+  "segmentsByCustomerId": {
+    "789": "STANDARD",
+    "111": "BASIC"
+  },
+  "preferencesBySegment": {
+    "PREMIUM": { "preferredDelivery": "express", "language": "de" },
+    "STANDARD": { "preferredDelivery": "express", "language": "de" },
+    "BASIC": { "preferredDelivery": "standard", "language": "de" }
+  }
+}

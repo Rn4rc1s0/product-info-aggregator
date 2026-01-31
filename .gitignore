@@ -1,0 +1,73 @@
+re # Build output
+/target/
+
+# Maven wrapper jar (optional to ignore if you prefer to keep it)
+# /.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ
+/.idea/
+*.iml
+/out/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+
+# Temporary files
+*.tmp
+*.swp
+*.swx
+*~
+
+# Compiled class files
+*.class
+
+# Packages
+*.jar
+*.war
+*.ear
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Generated files
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Spring Boot devtools (if present)
+restart.lock
+
+# IDE specific (NetBeans)
+nbproject/private/
+
+# Others
+*.log.*
+
+# Postman collections / local exports (keep in repo if you want to share)
+# /postman/
+
+# Sonar
+.sonar/
+
+# Temp folders created by editors/OS
+tmp/
+
+# Java 9+ module info
+module-info.class

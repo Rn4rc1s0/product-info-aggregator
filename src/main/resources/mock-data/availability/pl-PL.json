@@ -1,0 +1,6 @@
+{
+  "warehouse": "PL-01",
+  "items": {
+    "XYZ999": { "stock": 12, "delivery": "2-4 days" }
+  }
+}

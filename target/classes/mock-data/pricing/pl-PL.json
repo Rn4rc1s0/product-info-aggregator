@@ -1,0 +1,10 @@
+{
+  "currency": "PLN",
+  "items": {
+    "ABC123": { "basePrice": 110.00 },
+    "XYZ999": { "basePrice": 59.90 }
+  },
+  "overrides": {
+    "ABC123": { "forceUnavailable": true, "reason": "NO_PRICE_FOR_MARKET" }
+  }
+}
